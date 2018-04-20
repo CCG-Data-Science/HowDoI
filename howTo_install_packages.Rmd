@@ -1,0 +1,32 @@
+---
+title: "Packages"
+output:
+  html_document:
+    df_print: paged
+---
+
+### What are packages in R?
+R is an open source software which means that many people around the world can contribute to its development. The main way in which they do this is by the creation of so-called "packages". These add to the functionality of the core R that you get when you first install R. 
+
+Since noone needs all of these packages they have to be installed on your machine as you need them, then loaded into your R session each time you use them.
+
+### Installing an R package.
+
+This is done with the `install.packages("name of package")` command. You would not normally include this in a script or notebook, since it is only necessary to do it once on any given machine. Hence, you would do it at the command line. For example if we wished to install the `dplyr()` package, which very useful for data manipulation, we would write in the Console window
+
+```
+>install.packages("dplyr")
+```
+Then, when we wished to use it (usually immediately) we would load it into our session using the `library()` function.
+
+```{r}
+library(dplyr)
+```
+
+With this package, as with many others, loading it is accompanied by one or messages from R, which can usually be ignored.
+
+If you were writing an R script or an R markdown notebook in which you wanted to make use of a package such as `dplyr()`, then you would only include the `library(dplyr)` command and not the `install.packages("dplyr")` command. If you or another user got an error message on running this script, that would be an indication that `dplyr()` had not yet been installed on that particular machine. The remedy for this would be to type `install.packages("dplyr")` into the console window, and then to run the script again. If the error message did not reappear, that was the problem.
+
+
+
+

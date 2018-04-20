@@ -1,0 +1,31 @@
+---
+title: "How to make a table in an R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+Suppose were investigating the iris data set that comes with R:
+
+Let us load into our R session
+
+```{r}
+data(iris)
+```
+
+and see what we have got:
+
+```{r}
+str(iris)
+```
+
+To show this as a table:
+
+Variable|type|Unit
+--------|----|----
+sepal length | numeric | mm
+sepal width | numeric | mm
+petal length | numeric | mm
+petal width | numeric | mm
+
+
