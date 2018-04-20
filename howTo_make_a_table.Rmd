@@ -24,20 +24,22 @@ To show this as a table, you type:
 ```
 Variable|type|Unit
 --------|----|----
-sepal length | numeric | mm
-sepal width | numeric | mm
-petal length | numeric | mm
-petal width | numeric | mm
+Sepal length | numeric | mm
+Sepal width | numeric | mm
+Petal length | numeric | mm
+Petal width | numeric | mm
+Species | factor |
 ```
 
 which, once you knit the file, renders as 
 
 Variable|type|Unit
 --------|----|----
-sepal length | numeric | mm
-sepal width | numeric | mm
-petal length | numeric | mm
-petal width | numeric | mm
+Sepal length | numeric | mm
+Sepal width | numeric | mm
+Petal length | numeric | mm
+Petal width | numeric | mm
+Species | factor |
 
 
 
