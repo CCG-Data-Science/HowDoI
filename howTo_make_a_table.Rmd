@@ -19,7 +19,18 @@ and see what we have got:
 str(iris)
 ```
 
-To show this as a table:
+To show this as a table, you type:
+
+```
+Variable|type|Unit
+--------|----|----
+sepal length | numeric | mm
+sepal width | numeric | mm
+petal length | numeric | mm
+petal width | numeric | mm
+```
+
+which, once you knit the file, renders as 
 
 Variable|type|Unit
 --------|----|----
@@ -27,5 +38,6 @@ sepal length | numeric | mm
 sepal width | numeric | mm
 petal length | numeric | mm
 petal width | numeric | mm
+
 
 
