@@ -5,6 +5,8 @@ output:
     df_print: paged
 ---
 
+### Basic tables
+
 Suppose we were investigating the `iris` data set that comes with R:
 
 Let us load it into our R session
@@ -64,10 +66,11 @@ library(kableExtra)
 Lets try it out on the R data set `mtcars` (it's all about cars). We will take the first 5 rows and the first 6 columns of that and put them into a data frame called dt
 
 ```{r}
+data(mtcars)
 dt<-mtcars[1:5,1:6]
 ```
 
-The default table using this package is given like this:
+The default table using this package is produced using the `kable()` function, like this:
 
 ```{r}
 kable(dt)
