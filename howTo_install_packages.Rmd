@@ -12,7 +12,7 @@ Since noone needs all of these packages they have to be installed on your machin
 
 ### Installing an R package.
 
-This is done with the `install.packages("name of package")` command. You would not normally include this in a script or notebook, since it is only necessary to do it once on any given machine. Hence, you would do it at the command line. For example if we wished to install the `dplyr()` package, which very useful for data manipulation, we would write in the Console window
+This is done with the `install.packages("name of package")` command. You would not normally include this in a script or notebook, since it is only necessary to do it once on any given machine. Hence, you would do it at the command line. For example if we wished to install the `dplyr()` package, which is very useful for data manipulation, we would write in the Console window
 
 ```
 >install.packages("dplyr")

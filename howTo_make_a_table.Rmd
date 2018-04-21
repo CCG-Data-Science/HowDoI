@@ -5,9 +5,9 @@ output:
     df_print: paged
 ---
 
-Suppose were investigating the iris data set that comes with R:
+Suppose we were investigating the `iris` data set that comes with R:
 
-Let us load into our R session
+Let us load it into our R session
 
 ```{r}
 data(iris)
@@ -40,6 +40,44 @@ Sepal width | numeric | mm
 Petal length | numeric | mm
 Petal width | numeric | mm
 Species | factor |
+
+For basic tables, that is all there is to it.
+
+### Fancy tables
+
+You can produce really nice tables of data sets in markdown using the package [`kableExtra`](http://haozhu233.github.io/kableExtra/awesome_table_in_html.html)
+
+if you haven't done so already (and if you are reading this, you probably haven't), install the `kableExtra` package and the `knitr` package:
+
+```{r,eval=FALSE}
+install.packages("kableExtra")
+install.packages("knitr")
+```
+
+We load these into our session:
+
+```{r}
+library(knitr)
+library(kableExtra)
+```
+
+Lets try it out on the R data set `mtcars` (it's all about cars). We will take the first 5 rows and the first 6 columns of that and put them into a data frame called dt
+
+```{r}
+dt<-mtcars[1:5,1:6]
+```
+
+The default table using this package is given like this:
+
+```{r}
+kable(dt)
+```
+
+The package documentation goes on to show how the style of this table can be tweaked in many ways, if you want to do that.
+
+
+
+
 
 
 
