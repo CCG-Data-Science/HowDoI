@@ -1,0 +1,82 @@
+---
+title: "How to inspect your data in an R Notebook"
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+---
+
+Given a data set, it is very useful to be able to carry out exploratory data analysis on it. This is where we want to see what we have got, what it looks like, whether any data values are missing, and so on.
+
+Let's look first at the `airquality` data set that is built into R
+
+When we load this into R, we get a data frame called airquality
+
+```{r}
+data(airquality)
+class(airquality)
+```
+
+In the case of a data set that comes built-in to R, like airquality, we can find out what it contains by using the usual help facility within R, whereby we type a quation mark in the console, followed by the name of the thing we want help about:
+
+```{r}
+?airquality
+```
+
+The help information then appears in the Help window in the bottom right-hand pane of RStudio.
+
+In general, where our data does not come from within R, we cannot do this. We can, however, so several things that give us an idea of our data. 
+
+### str()
+
+We can use the `str()`to find out how many rows and columns there are, what kinds of data the columns contain, and what each column is called:
+
+```{r}
+str(airquality)
+```
+
+In a data frame, you can think of the data as being organised loke in a spreadsheet, with columns of variables, and each row being an observation. So, in the airquality data set, there are 154 observations, where each observation was of 6 variables.
+
+### summary()
+To get summary statistics on each variable, we can use summary(). For each variable, this tells us the minimum and maximum values, the mean, the median and the first and third quartile values.
+
+```{r}
+summary(airquality)
+```
+
+
+
+### Missing Values - NAs
+
+Note that for the `Ozone` and `Solar.R` variables a number of 'NA's are listed. These are missing values, which are a very common feature of real data sets. In a typical data analysis, you need to identify whether these are present, and if so, what to do about them. In many cases, R functions contain an additional optional argument `na.rm=TRUE` that allows NAs to be ignored:
+
+Try calculating the mean of the Ozone column:
+
+```{r}
+mean(airquality$Ozone)
+```
+It does not work because of the NA values within the column. However, if we ignore these using the `na.rm=TRUE` argument, all is well:
+
+```{r}
+mean(airquality$Ozone, na.rm=TRUE)
+```
+
+### head() and tail()
+Sometimes it is helpful to actually see a few rows of data. The `head()` and 'tail()` commands reveal the first and last few lines of data, respectively.
+
+```{r}
+head(airquality)
+```
+
+```{r}
+tail(airquality)
+```
+
+The default is to reveal 6 rows. If you want see a different number, then you can specify the number of rows to be shown, for example: `head(airquality,10)`.
+
+
+
+
+
+

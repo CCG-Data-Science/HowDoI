@@ -57,7 +57,7 @@ We can carry out a Fligner test to check for this
 ```{r}
 fligner.test(weight~group,data=df)
 ```
-The null hypothesis of this test is that the groups have equalvariance. Since the p-value here is much greater than 0.05, these data give us no grounds to reject this.
+The null hypothesis of this test is that the groups have equal variance. Since the p-value here is much greater than 0.05, these data give us no grounds to reject this.
 
 Thus the conditions for carrying out an ANOVA are met.
 
