@@ -1,0 +1,126 @@
+---
+title: "One way ANOVA"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  html_notebook:
+    number_sections: yes
+    toc: yes
+---
+
+
+Let us consider the PlantGrowth data set in R. This contains results from an experiment to compare yields (as measured by dried weight of plants) obtained under a control and two different treatment conditions.
+
+Do either of the treatments make any difference to yield?
+
+A general prediction could be that there are differences among the mean yields of each of the three groups, while a suitable null hypothesis could be that there is no difference among the three groups.
+
+### Load the data into R 
+We first load the data into R, then copy it a data frame called `df` and inspect it.
+
+```{r}
+data(PlantGrowth)
+df <- data.frame(PlantGrowth)
+str(df)
+```
+
+We have two columns of data. The response variable is _weight_, which is a numeric variable, while the predictor is _group_ which is a nominal variable. R calls such variables _factors_, and in R-speak, we have in this case 3 _levels_ - control, treatment 1 and treatment 2.
+
+### Conditions required for an ANOVA
+
+The data should be:
+
+* normally distributed
+* the groups should have equal variances
+
+#### Box plot
+We check this first with a box plot
+```{r}
+boxplot(weight ~ group, data = df, main = "PlantGrowth data",
+        ylab = "Dried weight of plants", col = "lightgray", varwidth = TRUE)
+```
+
+from which it seems that the values in each data set are more or less symmetrically distributed.
+
+#### Are the residuals of the data normally distributed?
+We can carry out a Shapiro-Wilks test for normality on the residuals of each group to check this
+```{r}
+residuals <- as.vector(sapply(split(df$weight,df$group),function(group,group_mean){group-mean(group)}))
+shapiro.test(residuals)
+```
+
+The null hypothesis of this test is that the residuals are normally distributed. Since the p-value here is much greater than 0.05, these data give us no grounds to reject this.
+
+#### Do the groups have equal variance
+We can carry out a Fligner test to check for this
+```{r}
+fligner.test(weight~group,data=df)
+```
+The null hypothesis of this test is that the groups have equalvariance. Since the p-value here is much greater than 0.05, these data give us no grounds to reject this.
+
+Thus the conditions for carrying out an ANOVA are met.
+
+First we will calculate the F-statistic and p-value manually, to check that we understand where they come from, then we will get them directly using the built-in `anova()` or `aov()` commands. These are what you would normally use when carrying out an ANOVA.
+
+### Manual calculation of the F statistic and p-value (skip this bit if you want to)
+
+#### Degrees of freedom
+```{r}
+N <- nrow(df)
+K <- length(unique(df$group))
+d1 <- K-1
+d2 <- N-K
+```
+
+#### Between-group variability
+```{r}
+overall_mean <- mean(df$weight)
+group_counts<-sapply(split(df$weight,df$group),length)
+group_means<-sapply(split(df$weight,df$group),mean)
+bgv <- sum((group_counts*(group_means-overall_mean)^2)/d1)
+bgv
+```
+#### Within-group variability
+```{r}
+wgv <- sum(sapply(split(df$weight,df$group),function(d,m){sum((d-mean(d))^2)}))/d2
+wgv
+```
+
+#### F-statistic
+```{r}
+F <- bgv/wgv
+F
+```
+
+#### p-value
+```{r}
+pval <- pf(F,d1,d2,lower.tail=FALSE)
+pval
+```
+
+### Using built in commands - the simpler way!
+We could instead use the built-in `anova()`  or `aov()` functions in R. This is much simpler!
+
+```{r}
+anova(lm(weight~group,data=df))
+```
+
+```{r}
+summary(aov(weight~group,data=df))
+```
+
+The p-value is `r round(pval,3)`, so there is good evidence that the treatments do affect the rate of plant growth.
+
+We could report this result as (F=`r round(F,2)`, d.f=`r d1`,`r d2`,p<0.05)
+
+### Post-hoc comparisons
+
+Which groups are different?
+```{r}
+TukeyHSD(aov(weight~group,data=df))
+```
+
+this shows that only one of the differences in growth rates is significant: treatment 2 is significantly better than treatment 1. The p-values here have been adjusted (a Bonferoni correction?) to account for the danger, that, when making multiple pair-wise comparisons, the type 1 error rate can increase.
+
+Does the box plot confirm this conclusion?
