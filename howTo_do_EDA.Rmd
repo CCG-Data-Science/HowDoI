@@ -75,6 +75,45 @@ tail(airquality)
 
 The default is to reveal 6 rows. If you want see a different number, then you can specify the number of rows to be shown, for example: `head(airquality,10)`.
 
+Let's convert the month  column to a *factor*. That is R's term for a categorical variable. While we are at it, let us give the *levels* of this factor, which are the different values it takes, descriptive labels. These we will take from the built-in R constant `months.abb`, which is a vector of abbreviated names for each month of the year. Lastly we will tell R that these levels are 'ordered', in the sense that June comes after May, etc (whereas, in another context, apples do not come fater lemons, say)
+
+```{r message=FALSE}
+airquality$Month <- factor(airquality$Month, levels=5:9, labels=month.abb[5:9], ordered=TRUE)
+```
+
+Let's also convert the days column to be an ordered factor, this time with levels 1:31
+```{r message=FALSE}
+airquality$Day <- factor(airquality$Day, levels=1:31, ordered=TRUE)
+```
+
+
+### Box plot and strip plot
+We can plot the ozone level, split by month, using either a `boxplot`
+
+```{r}
+boxplot(Ozone ~ Month,data=airquality,ylab="Ozone conc. (ppb)")
+```
+
+or, here where there are not many data points, a `stripplot`, from the `lattice` package.
+```{r,message=FALSE}
+library(lattice)
+stripplot(Ozone~ Month,data=airquality,ylab="Ozone conc. (ppb)")
+```
+
+### Histogram
+We can do a histogram, for example of the wind speed values.
+
+```{r}
+histogram(airquality$Wind)
+```
+
+If we don't like the default binwidth, we can change it. See ?hist for the various ways this can be done. For exmple here, it might be better to have 25 bins of width 1 mph. We might also prefer another colour.
+
+```{r}
+histogram(airquality$Wind,breaks=c(1:25),xlab="Wind speed (mph)",col="grey")
+```
+
+
 
 
 
