@@ -5,7 +5,7 @@ output:
     df_print: paged
 ---
 
-How to create and modify a data frame
+## How to create and modify a data frame
 
 A data frame is the most commonly used data structure in R. You can think of it as like a worksheet in a spreadsheet, with each column holding a different variable, and each row a different observation.
 
@@ -77,6 +77,15 @@ summary(df)
 Now we can remove any row in which any of the columns have a missing value:
 ```{r}
 df <- df[complete.cases(df)==TRUE,]
+str(df)
+```
+
+### Create a new column in a data frame
+Suppose we want to calculate the product of the sepal length and width, and put the value in a new column called Sepal.Area.
+We just do it!
+
+```{r}
+df$Sepal.Area <- df$Sepal.Length * df$Sepal.Width
 str(df)
 ```
 
