@@ -1,0 +1,91 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+How to create and modify a data frame
+
+A data frame is the most commonly used data structure in R. You can think of it as like a worksheet in a spreadsheet, with each column holding a different variable, and each row a different observation.
+
+When you load a csv file or one of the built-in data sets into R, the data will be in the form of a data frame.
+
+Let us do this with the iris data set in R:
+
+```{r}
+data(iris)
+str(iris)
+```
+
+This data set has 150 rows of data (observations) in 5 columns (variables). 4 of the variables are numeric, and one is what R calls a Factor, that is, a categorical variable with 3 levels, by which is meant that it has three distinct values, which in this case are the names of three species of iris.
+
+```{r}
+library(knitr)
+library(kableExtra)
+kable(iris[1:5,])
+```
+
+
+### Subset a data frame by column name or by row/column numbers
+To access a subset of a data frame you can either refer to columns by name using the `$` symbol, as in dataframe$columnName, or use the [rowNumbers(s),columnNumbers(s)] notation, or a combination of the two:
+
+```{r}
+iris$Sepal.Length[1:5] # The column named Sepal.Length, rows 1:5
+iris$Sepal.Length[3] # Thre third element of the column named Sepal.Length
+iris[,1:3] # All the rows but only the first three columns of iris
+iris[1:3,] # The first three rows and all the columns of iris
+iris[3:8,2:4] # Rows 3 to 8 from columns 2 to 4
+```
+
+
+### Subset a data frame according to some condition being met
+```{r}
+# only those rows where the species is 'setosa'. Note the double '==' !
+iris[iris$Species=='setosa',] 
+
+# only those rows where the petal length is greater than 1.5
+iris[iris$Petal.Length>1.5,] 
+
+ # only those rows where the petal length is greater than 1.5 AND the species is setosa - note use of '&' for a logical AND
+iris[iris$Petal.Length>1.5 & iris$Species=='setosa',]
+
+# only those rows where the petal length is greater than 1.5 OR the sepal length is less than 5. - note use of '|' for a logical OR
+iris[iris$Petal.Length>1.5 | iris$Sepal.Length<5,] 
+```
+
+### Copying a data frame
+We might want to copy a data frame, for example if we want to leave our original data untouched in one place, while manipulating it in another. Let us create a copy of the iris data frame and call it `df`.
+
+```{r}
+df <- data.frame(iris)
+```
+
+### Removing rows with missing values
+
+The iris data set is unlike most real data sets in that it has no missing values, which in R are denoted by 'NA'. A common problenm is to have to decide what to do about these. One solution could be to remove any observation (ie row) where any of the variables (ie columns) have missing values, leaving only those rows that are complete.
+
+To illustrate this, let us introduce 10 missing values to random rows in the Sepal.Length column of our copied data frame, and 5 others to random rows in the Petal.Width column
+
+```{r}
+str(df)
+df$Sepal.Length[sample(1:150,10)] <- NA
+df$Petal.Width[sample(1:150,5)] <- NA
+summary(df)
+```
+
+Now we can remove any row in which any of the columns have a missing value:
+```{r}
+df <- df[complete.cases(df)==TRUE,]
+str(df)
+```
+
+
+
+
+
+
+
+
+
+

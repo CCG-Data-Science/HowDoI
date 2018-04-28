@@ -49,7 +49,7 @@ For basic tables, that is all there is to it.
 
 You can produce really nice tables of data sets in markdown using the package [`kableExtra`](http://haozhu233.github.io/kableExtra/awesome_table_in_html.html)
 
-if you haven't done so already (and if you are reading this, you probably haven't), install the `kableExtra` package and the `knitr` package:
+if you haven't done so already (and if you are reading this, you probably haven't), install the `kableExtra` and `knitr` packages:
 
 ```{r,eval=FALSE}
 install.packages("kableExtra")
