@@ -1,0 +1,7 @@
+---
+title: "How to make use logarithmic scales"
+output:
+  html_document:
+    df_print: paged
+---
+
